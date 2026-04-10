@@ -1,0 +1,28 @@
+#!perl
+use v5.40;
+use utf8;
+use FindBin;
+use lib "$FindBin::Bin/../t/lib";
+use App::Prove;
+
+my @test_args = @ARGV or die "Usage: $0 [test_file_or_directory ...]";
+my $runs;
+
+my $preset_seed = $ENV{PERL_RAND_SEED};
+while (1) {
+  $runs++;
+  say "=== Run #$runs ===";
+
+  my $seed = $preset_seed // srand();
+  # pass on seed to child processes spawned by prove
+  $ENV{PERL_RAND_SEED} = $seed;
+
+  my $app = App::Prove->new;
+  $app->process_args(@test_args);
+
+  unless ($app->run) {
+    # safe, as srand is guaranteed to only be called once
+    say "❌ Test failed on run #$runs, PERL_RAND_SEED: ", $seed;
+    last;
+  }
+}

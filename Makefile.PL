@@ -1,0 +1,11 @@
+use ExtUtils::MakeMaker;
+
+WriteMakefile(
+  NAME => 'Test::QuickGen',
+  AUTHOR => [
+    'Antonis Kalou <kalouantonis@protonmail.com>',
+  ],
+  LICENSE => 'perl_5',
+  VERSION_FROM => 'lib/Test/QuickGen.pm',
+  EXE_FILES => ['bin/quicktest'],
+);
