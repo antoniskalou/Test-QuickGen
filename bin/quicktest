@@ -1,5 +1,6 @@
-#!perl
-use v5.40;
+#!/usr/bin/env perl
+
+use v5.16;
 use utf8;
 use FindBin;
 use lib "$FindBin::Bin/../t/lib";
