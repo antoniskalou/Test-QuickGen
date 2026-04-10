@@ -1,6 +1,6 @@
 package Test::QuickGen;
 
-use v5.40;
+use v5.16;
 use strict;
 use warnings;
 use Exporter 'import';
