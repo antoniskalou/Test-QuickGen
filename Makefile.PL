@@ -8,4 +8,7 @@ WriteMakefile(
   LICENSE => 'perl_5',
   VERSION_FROM => 'lib/Test/QuickGen.pm',
   EXE_FILES => ['bin/quicktest'],
+  TEST_REQUIRES => {
+    'Test::More' => 0,
+  }
 );

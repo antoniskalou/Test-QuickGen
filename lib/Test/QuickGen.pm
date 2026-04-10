@@ -12,13 +12,15 @@ our @EXPORT = qw(
 
 =head1 NAME
 
-Test::Random
+Test::QuickGen
 
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
 
 Utilities for generating random data.
+
+=head1 FUNCTIONS
 
 =head2 id
 
