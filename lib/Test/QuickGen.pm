@@ -15,7 +15,7 @@ our @EXPORT = qw(
 
 =head1 NAME
 
-Test::QuickGen
+Test::QuickGen - Utilities for generating random test data
 
 =head1 SYNOPSIS
 
@@ -311,7 +311,7 @@ Antonis Kalou <<kalouantonis@protonmail.com>>
 =head1 LICENSE
 
 This library is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself. See L<LICENSE> for details.
+the same terms as Perl itself. See F<LICENSE> for details.
 
 =cut
 

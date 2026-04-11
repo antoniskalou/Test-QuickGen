@@ -1,6 +1,6 @@
 # NAME
 
-Test::QuickGen
+Test::QuickGen - Utilities for generating random test data
 
 # SYNOPSIS
 
@@ -139,4 +139,4 @@ Antonis Kalou <<kalouantonis@protonmail.com>>
 # LICENSE
 
 This library is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself. See [LICENSE](https://metacpan.org/pod/LICENSE) for details.
+the same terms as Perl itself. See `LICENSE` for details.
