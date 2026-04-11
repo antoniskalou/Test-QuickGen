@@ -4,7 +4,7 @@ Test::QuickGen - Utilities for generating random test data
 
 # SYNOPSIS
 
-    use Test::QuickGen;
+    use Test::QuickGen qw(:all);
 
     my $id = id();
     my $str = ascii_string(10);
@@ -24,6 +24,34 @@ data, primarily intended for testing purposes. These generators are simple,
 fast, and have minimal dependencies.
 
 All functions are exported by default.
+
+# IMPORTING
+
+Nothing is exported by default.
+
+Import functions explicitly:
+
+    use Test::QuickGen qw(id ascii_string);
+
+Import groups of functions using tags:
+
+    use Test::QuickGen qw(:all);
+    use Test::QuickGen qw(:utf8);
+    use Test::QuickGen qw(:basic);
+
+Available tags:
+
+- `:all`
+
+    All available functions.
+
+- `:utf8`
+
+    `utf8_string`, `utf8_sanitized`.
+
+- `:basic`
+
+    `id`, `between`, `pick`, `nullable`.
 
 # FUNCTIONS
 

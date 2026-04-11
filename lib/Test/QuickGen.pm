@@ -8,9 +8,14 @@ use Exporter 'import';
 
 our $VERSION = '0.1.0';
 
-our @EXPORT = qw(
+our @EXPORT_OK = qw(
   ascii_string between id string_of pick nullable words
   utf8_string utf8_sanitized
+);
+our %EXPORT_TAGS = (
+  all => \@EXPORT_OK,
+  utf8 => [qw(utf8_string utf8_sanitized)],
+  basic => [qw(id between pick nullable)],
 );
 
 =head1 NAME
@@ -19,7 +24,7 @@ Test::QuickGen - Utilities for generating random test data
 
 =head1 SYNOPSIS
 
-  use Test::QuickGen;
+  use Test::QuickGen qw(:all);
 
   my $id = id();
   my $str = ascii_string(10);
@@ -39,6 +44,38 @@ data, primarily intended for testing purposes. These generators are simple,
 fast, and have minimal dependencies.
 
 All functions are exported by default.
+
+=head1 IMPORTING
+
+Nothing is exported by default.
+
+Import functions explicitly:
+
+  use Test::QuickGen qw(id ascii_string);
+
+Import groups of functions using tags:
+
+  use Test::QuickGen qw(:all);
+  use Test::QuickGen qw(:utf8);
+  use Test::QuickGen qw(:basic);
+
+Available tags:
+
+=over 4
+
+=item * C<:all>
+
+All available functions.
+
+=item * C<:utf8>
+
+C<utf8_string>, C<utf8_sanitized>.
+
+=item * C<:basic>
+
+C<id>, C<between>, C<pick>, C<nullable>.
+
+=back
 
 =head1 FUNCTIONS
 

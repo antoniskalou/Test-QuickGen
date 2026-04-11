@@ -6,7 +6,7 @@ use warnings;
 use utf8;
 use open qw(:std :encoding(UTF-8));
 use Test::More;
-use Test::QuickGen;
+use Test::QuickGen qw(:all);
 
 subtest 'id' => sub {
   my $prev = id();
