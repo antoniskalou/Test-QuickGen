@@ -16,8 +16,6 @@ our @EXPORT = qw(
 
 Test::QuickGen
 
-=head1 SYNOPSIS
-
 =head1 DESCRIPTION
 
 Utilities for generating random data.
