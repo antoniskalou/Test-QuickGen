@@ -15,7 +15,7 @@ my $help;
 # forwarded to prove.
 Getopt::Long::Configure('pass_through');
 GetOptions(
-  'max-runs=i' => \$max_runs,
+  'max-runs|n=i' => \$max_runs,
   'help|h' => \$help,
 ) or pod2usage(2);
 pod2usage(-verbose => 2) if $help;
@@ -72,7 +72,7 @@ It is useful for detecting intermittent (flaky) test failures.
 
 =head1 OPTIONS
 
-=head2 --max-runs N
+=head2 --max-runs N, -n N
 
 Stop after running the test suite C<N> times, even if no failures occur.
 

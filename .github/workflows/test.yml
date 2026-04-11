@@ -26,6 +26,9 @@ jobs:
           RELEASE_TESTING: 1
         run: make test
 
+      - name: Run generative tests repeatedly
+        run: bin/quicktest --max-runs 100 -l t/01-functions.t
+
       - env:
           RELEASE_TESTING: 1
         run: make disttest
