@@ -4,62 +4,139 @@ Test::QuickGen
 
 # SYNOPSIS
 
+    use Test::QuickGen;
+
+    my $id = id();
+    my $str = ascii_string(10);
+    my $utf8 = utf8_string(20);
+    my $clean = utf8_sanitized(15);
+
+    my $rand = between(1, 100);
+    my $opt = nullable("value");
+    my $item = pick(qw(a b c));
+
+    my $words = words(\&ascii_string, 5);
+
 # DESCRIPTION
 
-Utilities for generating random data.
+`Test::QuickGen` provides a set of utility functions for generating random
+data, primarily intended for testing purposes. These generators are simple,
+fast, and have minimal dependencies.
+
+All functions are exported by default.
 
 # FUNCTIONS
 
 ## id
 
-    my $new_id = id();
-    my $newer_id = id();
-    print $new_id == $newer_id; # 0
+    my $id1 = id();
+    my $id2 = id();
 
-Generate a program unique ID. Will reset on each program run.
+    # $id1 != $id2
+
+Returns a monotonically increasing integer starting from 0.
+
+The counter is process-local and resets each time the program runs.
 
 ## string\_of
 
-    print string_of(10, qw(a b c d)); # aaabcbdabd
+    my $str = string_of(10, qw(a b c));
 
-Generate a random string of N length with the given characters.
+Generates a random string of length `$n` using the provided list of characters.
+
+- `$n` must be a non-negative integer.
+- At least one character must be provided.
+- Characters are selected uniformly at random.
 
 ## ascii\_string
 
-    print ascii_string(10); # aZfjar190a
+    my $str = ascii_string(10);
 
-Generate a random ASCII string of N length.
+Generates a random ASCII string length `$n`.
+
+The character set includes all lowercase letters (a-z), uppercase letters (A-Z),
+digits (0-9) and underscore (\_).
 
 ## utf8\_string
 
-Generate a random UTF-8 string of N length.
+    my $str = utf8_string(10);
+
+Generates a random UTF-8 string of `$n` characters.
+
+The generator:
+
+- Includes visible Unicode characters up to code point `0x2FFF`.
+- Excludes control characters and invalid Unicode ranges.
+- Skips surrogate pairs and non-characters.
+
+Note: Because characters may vary in byte length, this function targets
+character count (not byte length).
 
 ## utf8\_sanitized
 
-A clean UTF-8 string that is absent of special characters.
+    my $clean = utf8_sanitized(10);
+
+Generates a UTF-8 string and removes all non-alphanumeric characters, retaining
+only:
+
+- Unicode letters (`\p{L}`)
+- Unicode numbers (`\p{N}`)
+- Whitespace
+
+If all characters are filtered out, the function retries until a non-empty
+string is produced.
 
 ## words
 
-Generate a string of N words, using the string generator `$gen`.
+    my $str = words(\&ascii_string, 5);
+
+Generates a string consisting of `$n` space-separated "words".
+
+- `$gen` is a coderef that generates a string given a length.
+- Each word length is randomly chosen between 1 and 70.
+- Words are joined with a single space.
+
+Example:
+
+    words(\&ascii_string, 3);
+    # "aZ3 kLm92 Q"
 
 ## between
 
-    print between(1, 10); # 1
-    print between(1, 10); # 10
-    print between(1, 10); # 8
+    my $n = between(1, 10);
 
-Return a integer between min and max (inclusive).
+Returns a random integer between `$min` and `$max` (inclusive).
+
+The distribution is uniform and `$min` must be <= `$max`.
 
 ## nullable
 
-    print nullable(2); # 2
-    print nullable(2); # undef
+    my $value = nullable("data");
 
-Has a chance of nulling the given value.
+Returns either the given value or `undef`.
+
+25% chance of returning `undef`, 75% chance of returning the original value.
+Useful for testing optional fields.
 
 ## pick
 
-    print pick(1, 2, 3); # 3
-    print pick(1, 2, 3); # 1
+    my $item = pick(qw(a b c));
 
-Pick a random element from a list.
+Returns a random element from the provided list.
+
+If provided an empty list, will return `undef`. Randomness is uniform in
+its distribution.
+
+# NOTES
+
+- These functions are not cryptographically secure.
+- They are intended for testing, fuzzing, and data generation only.
+
+# AUTHOR
+
+Antonis Kalou <<kalouantonis@protonmail.com>>
+
+# LICENSE
+
+This library is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself. See [LICENSE](https://metacpan.org/pod/LICENSE) for details.

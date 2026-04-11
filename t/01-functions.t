@@ -50,6 +50,8 @@ subtest 'between' => sub {
 };
 
 subtest 'pick' => sub {
+  ok(! defined pick(), "empty list returns undef");
+  
   my @vals = (1, 2, 3);
 
   for (1..100) {
