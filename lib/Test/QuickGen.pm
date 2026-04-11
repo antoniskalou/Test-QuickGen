@@ -3,6 +3,7 @@ package Test::QuickGen;
 use v5.16;
 use strict;
 use warnings;
+use Carp qw(croak);
 use Exporter 'import';
 
 our $VERSION = '0.1.0';
@@ -85,7 +86,10 @@ Characters are selected uniformly at random.
 
 sub string_of {
   my ($n, @chars) = @_;
-  my $str;
+
+  croak 'string_of: empty character set' unless @chars;
+  
+  my $str = '';
   for (1..$n) {
     $str .= $chars[rand @chars];
   }
@@ -189,6 +193,9 @@ string is produced.
 sub utf8_sanitized {
   my ($n) = @_;
   my $s = utf8_string($n);
+  # exit early before stripping if the intended result is an empty string
+  return $s if $s eq '';
+
   $s =~ s/[^\p{L}\p{N}\s]//gu;
 
   # sometimes all characters get filtered, try again and hope for the best
@@ -246,6 +253,7 @@ The distribution is uniform and C<$min> must be <= C<$max>.
 
 sub between {
   my ($min, $max) = @_;
+  croak "between: max must be larger or equal to min" if $max < $min;
   $min + int(rand($max - $min + 1));
 }
 
