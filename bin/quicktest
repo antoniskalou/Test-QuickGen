@@ -3,8 +3,6 @@
 use v5.16;
 use utf8;
 use open qw(:std :encoding(UTF-8));
-use FindBin;
-use lib "$FindBin::Bin/../t/lib";
 use Getopt::Long qw(GetOptions);
 use Pod::Usage qw(pod2usage);
 use App::Prove;
@@ -98,6 +96,10 @@ Run tests until failure:
 Run up to 50 times:
 
   quicktest --max-runs 50 -l t/
+
+Run tests with a failed seed:
+
+  PERL_RAND_SEED=1234 prove -l t/
 
 =head1 AUTHOR
 
