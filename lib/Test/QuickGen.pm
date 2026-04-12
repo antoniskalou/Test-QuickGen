@@ -59,7 +59,7 @@ Import groups of functions using tags:
   use Test::QuickGen qw(:utf8);
   use Test::QuickGen qw(:basic);
 
-Available tags:
+See source for the exact composition.
 
 =over 4
 
