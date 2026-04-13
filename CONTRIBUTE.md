@@ -1,7 +1,6 @@
 # Contribute
 
-Run this file with markatzea to configure your git hooks [markatzea][markatzea].
-The githook will then run this file for you using markatzea.
+This file is runnable with [markatzea][markatzea].
 
 ## Documentation
 
