@@ -2,6 +2,8 @@
 
 This file is runnable with [markatzea][markatzea].
 
+Run this file with `markatzea CONTRIBUTE.md` when setting up your dev environment.
+
 ## Documentation
 
 Generate the README.md
