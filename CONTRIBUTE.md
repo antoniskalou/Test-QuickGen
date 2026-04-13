@@ -17,9 +17,9 @@ perl Makefile.PL
 make
 ```
 
-## Tests
+## Test
 
-Running tests
+Running tests.
 
 ```bash bash
 make test
