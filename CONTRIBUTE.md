@@ -11,12 +11,19 @@ Generate the README.md
 pod2markdown ./lib/Test/QuickGen.pm > ./README.md
 ```
 
+## Build
+
+```bash bash
+perl Makefile.PL
+make
+```
+
 ## Tests
 
 Running tests
 
 ```bash bash
-prove
+make test
 ```
 
 ## Git Hook
