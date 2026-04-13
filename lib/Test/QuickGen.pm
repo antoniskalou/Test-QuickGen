@@ -343,7 +343,7 @@ They are intended for testing, fuzzing, and data generation only.
 
 =head1 AUTHOR
 
-Antonis Kalou <<kalouantonis@protonmail.com>>
+Antonis Kalou <kalouantonis@protonmail.com>
 
 =head1 LICENSE
 

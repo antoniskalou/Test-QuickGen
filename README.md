@@ -162,7 +162,7 @@ its distribution.
 
 # AUTHOR
 
-Antonis Kalou <<kalouantonis@protonmail.com>>
+Antonis Kalou <kalouantonis@protonmail.com>
 
 # LICENSE
 
