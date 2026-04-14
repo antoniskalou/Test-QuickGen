@@ -1,8 +1,8 @@
-# Contribute
+# Contributing
 
 This file is runnable with [markatzea][markatzea].
 
-Run this file with `markatzea CONTRIBUTE.md` when setting up your dev environment.
+Run this file with `markatzea ./CONTRIBUTING.md` when setting up your dev environment.
 
 ## Documentation
 
@@ -34,7 +34,7 @@ A pre-commit hook to update the docs.
 ```bash cat - > .git/hooks/pre-commit
 #!/usr/bin/env bash
 
-markatzea ./CONTRIBUTE.md
+markatzea ./CONTRIBUTING.md
 git add README.md
 ```
 
