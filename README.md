@@ -27,7 +27,7 @@ All functions are exported by default.
 
 # COMMAND LINE TOOL
 
-This module comes bundled with an optional test runner, see [quickcheck](https://metacpan.org/pod/quickcheck) for
+This module comes bundled with an optional test runner, see [quicktest](https://metacpan.org/pod/quicktest) for
 more details.
 
 # IMPORTING

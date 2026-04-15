@@ -47,7 +47,7 @@ All functions are exported by default.
 
 =head1 COMMAND LINE TOOL
 
-This module comes bundled with an optional test runner, see L<quickcheck> for
+This module comes bundled with an optional test runner, see L<quicktest> for
 more details.
 
 =head1 IMPORTING
