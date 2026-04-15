@@ -81,5 +81,3 @@
 
 ^\.perltidyrc
 ^MANIFEST\.SKIP
-# Github readme
-^README\.md
