@@ -4,6 +4,7 @@ use v5.16;
 use strict;
 use warnings;
 use Carp qw(croak);
+use Scalar::Util qw(looks_like_number);
 use Exporter 'import';
 
 our $VERSION = '0.1.0';
@@ -243,7 +244,7 @@ sub utf8_sanitized {
   $s;
 }
 
-=head2 words($gen, $n)
+=head2 words($gen, $n, $max_len = 70)
 
   my $str = words(\&string_generator, 5);
 
@@ -266,10 +267,15 @@ For example:
     # return a string of length $len
   }
 
+=item * C<$max_len>
+
+An optional parameter to set the maximum length (inclusive) of a word.
+Defaults to 70. Must be a positive number.
+
 =item * Word generation
 
-For each of the C<$n> words, a random length between 1 and 70 is chosen.
-That length is passed to C<$gen>, which returns the word.
+For each of the C<$n> words, a random length between 1 and C<$max_len> is
+chosen. That length is passed to C<$gen>, which returns the word.
 
 =item * Output format
 
@@ -284,8 +290,13 @@ Example:
 
 =cut
 sub words {
-  my ($gen, $n) = @_;
-  my @words = map { $gen->(between(1, 70)) } (1..$n);
+  my ($gen, $n, $max_len) = @_;
+
+  $max_len //= 70;
+  croak '$max_len must be a positive number'
+    unless looks_like_number($max_len) && $max_len > 0;
+
+  my @words = map { $gen->(between(1, $max_len)) } (1..$n);
   join ' ', @words;
 }
 

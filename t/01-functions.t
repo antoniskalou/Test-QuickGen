@@ -138,6 +138,12 @@ subtest 'words' => sub {
 
   is(scalar @words, 5, 'correct number of words');
   like($s, qr/^\S+( \S+){4}$/, 'correct spacing');
+
+  # accepts an optional max word size
+  is(words($gen, 2, 1), 'x x', 'accepts optional max word length');
+
+  eval { words($gen, 2, 0) };
+  like($@, qr/must be a positive number/, 'fails with non-positive number');
 };
 
 done_testing;

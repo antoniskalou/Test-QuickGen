@@ -119,7 +119,7 @@ characters, retaining only:
 If all characters are filtered out, the function retries until a non-empty
 string is produced.
 
-## words($gen, $n)
+## words($gen, $n, $max\_len = 70)
 
     my $str = words(\&string_generator, 5);
 
@@ -140,10 +140,15 @@ Each word is produced by calling the generator function `$gen`.
           # return a string of length $len
         }
 
+- `$max_len`
+
+    An optional parameter to set the maximum length (inclusive) of a word.
+    Defaults to 70. Must be a positive number.
+
 - Word generation
 
-    For each of the `$n` words, a random length between 1 and 70 is chosen.
-    That length is passed to `$gen`, which returns the word.
+    For each of the `$n` words, a random length between 1 and `$max_len` is
+    chosen. That length is passed to `$gen`, which returns the word.
 
 - Output format
 
