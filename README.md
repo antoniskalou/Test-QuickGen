@@ -23,8 +23,6 @@ Test::QuickGen - Utilities for generating random test data
 data, primarily intended for testing purposes. These generators are simple,
 fast, and have minimal dependencies.
 
-All functions are exported by default.
-
 # COMMAND LINE TOOL
 
 This module comes bundled with an optional test runner, see [quicktest](https://metacpan.org/pod/quicktest) for

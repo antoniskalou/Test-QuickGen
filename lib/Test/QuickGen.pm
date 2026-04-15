@@ -44,8 +44,6 @@ C<Test::QuickGen> provides a set of utility functions for generating random
 data, primarily intended for testing purposes. These generators are simple,
 fast, and have minimal dependencies.
 
-All functions are exported by default.
-
 =head1 COMMAND LINE TOOL
 
 This module comes bundled with an optional test runner, see L<quicktest> for
