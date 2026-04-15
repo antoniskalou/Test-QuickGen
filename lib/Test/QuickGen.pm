@@ -45,6 +45,11 @@ fast, and have minimal dependencies.
 
 All functions are exported by default.
 
+=head1 COMMAND LINE TOOL
+
+This module comes bundled with an optional test runner, see L<quickcheck> for
+more details.
+
 =head1 IMPORTING
 
 Nothing is exported by default.
@@ -59,8 +64,6 @@ Import groups of functions using tags:
   use Test::QuickGen qw(:utf8);
   use Test::QuickGen qw(:basic);
 
-See source for the exact composition.
-
 =over 4
 
 =item * C<:all>
@@ -69,13 +72,15 @@ All available functions.
 
 =item * C<:utf8>
 
-C<utf8_string>, C<utf8_sanitized>.
+UTF-8 specific functions.
 
 =item * C<:basic>
 
-C<id>, C<between>, C<pick>, C<nullable>.
+Simple utils like C<pick> or C<id>.
 
 =back
+
+See source for exact composition of the imports.
 
 =head1 FUNCTIONS
 
@@ -91,17 +96,16 @@ Returns a monotonically increasing integer starting from 0.
 The counter is process-local and resets each time the program runs.
 
 =cut
-
 sub id {
     state $id = 0;
     $id++;
 }
 
-=head2 string_of
+=head2 string_of($n, @chars)
 
   my $str = string_of(10, qw(a b c));
 
-Generates a random string of length C<$n> using the provided list of characters.
+Generates a random string of length C<$n> using the provided list of characters C<@chars>.
 
 =over 4
 
@@ -120,7 +124,6 @@ Characters are selected uniformly at random.
 =back
 
 =cut
-
 sub string_of {
   my ($n, @chars) = @_;
 
@@ -133,7 +136,7 @@ sub string_of {
   $str;
 }
 
-=head2 ascii_string
+=head2 ascii_string($n)
 
   my $str = ascii_string(10);
 
@@ -143,14 +146,13 @@ The character set includes all lowercase letters (a-z), uppercase letters (A-Z),
 digits (0-9) and underscore (_).
 
 =cut
-
 sub ascii_string {
   my ($n) = @_;
   # TODO: include other ASCII characters too
   string_of($n, 'a'..'z', 'A'..'Z', '0'..'9', '_');
 }
 
-=head2 utf8_string
+=head2 utf8_string($n)
 
   my $str = utf8_string(10);
 
@@ -178,7 +180,6 @@ Note: Because characters may vary in byte length, this function targets
 character count (not byte length).
 
 =cut
-
 sub utf8_string {
   my ($n) = @_;
   my $str = '';
@@ -199,12 +200,12 @@ sub utf8_string {
   $str;
 }
 
-=head2 utf8_sanitized
+=head2 utf8_sanitized($n)
 
   my $clean = utf8_sanitized(10);
 
-Generates a UTF-8 string and removes all non-alphanumeric characters, retaining
-only:
+Generates a UTF-8 string of length C<$n> and removes all non-alphanumeric
+characters, retaining only:
 
 =over 4
 
@@ -226,7 +227,6 @@ If all characters are filtered out, the function retries until a non-empty
 string is produced.
 
 =cut
-
 sub utf8_sanitized {
   my ($n) = @_;
   my $s = utf8_string($n);
@@ -243,42 +243,53 @@ sub utf8_sanitized {
   $s;
 }
 
-=head2 words
+=head2 words($gen, $n)
 
-  my $str = words(\&ascii_string, 5);
+  my $str = words(\&string_generator, 5);
 
-Generates a string consisting of C<$n> space-separated "words".
+Generates a string made up of C<$n> space-separated "words".
+
+Each word is produced by calling the generator function C<$gen>.
 
 =over 4
 
-=item *
+=item * C<$gen>
 
-C<$gen> is a coderef that generates a string given a length.
+A coderef that is called once per word.
 
-=item *
+It accepts a single integer argument (the desired length), and returns a string.
 
-Each word length is randomly chosen between 1 and 70.
+For example:
 
-=item *
+  sub string_generator {
+    my ($len) = @_;
+    # return a string of length $len
+  }
 
-Words are joined with a single space.
+=item * Word generation
+
+For each of the C<$n> words, a random length between 1 and 70 is chosen.
+That length is passed to C<$gen>, which returns the word.
+
+=item * Output format
+
+The generated words are joined together with a single space.
 
 =back
 
 Example:
 
   words(\&ascii_string, 3);
-  # "aZ3 kLm92 Q"
+  # might return: "aZ3 kLm92 Q"
 
 =cut
-
 sub words {
   my ($gen, $n) = @_;
   my @words = map { $gen->(between(1, 70)) } (1..$n);
   join ' ', @words;
 }
 
-=head2 between
+=head2 between($min, $max)
 
   my $n = between(1, 10);
 
@@ -287,14 +298,13 @@ Returns a random integer between C<$min> and C<$max> (inclusive).
 The distribution is uniform and C<$min> must be <= C<$max>.
 
 =cut
-
 sub between {
   my ($min, $max) = @_;
   croak "between: max must be larger or equal to min" if $max < $min;
   $min + int(rand($max - $min + 1));
 }
 
-=head2 nullable
+=head2 nullable($val)
 
   my $value = nullable("data");
 
@@ -304,7 +314,6 @@ Returns either the given value or C<undef>.
 Useful for testing optional fields.
 
 =cut
-
 sub nullable {
   my ($val) = @_;
   if (rand() < 0.25) {
@@ -314,7 +323,7 @@ sub nullable {
   }
 }
 
-=head2 pick
+=head2 pick(@items)
 
   my $item = pick(qw(a b c));
 
@@ -324,7 +333,6 @@ If provided an empty list, will return C<undef>. Randomness is uniform in
 its distribution.
 
 =cut
-
 sub pick { $_[rand @_] }
 
 =head1 NOTES
