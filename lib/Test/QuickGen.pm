@@ -29,7 +29,8 @@ Test::QuickGen - Utilities for generating random test data
   use Test::QuickGen qw(:all);
 
   my $id = id();
-  my $str = ascii_string(10);
+  my $ascii = ascii_string(10);
+  my $alphanum = alphanumeric_string(10);
   my $utf8 = utf8_string(20);
   my $clean = utf8_sanitized(15);
 
@@ -121,10 +122,6 @@ C<$n> must be a non-negative integer.
 =item *
 
 At least one character must be provided.
-
-=item *
-
-Characters are selected uniformly at random.
 
 =back
 
@@ -324,7 +321,7 @@ sub words {
 
 Returns a random integer between C<$min> and C<$max> (inclusive).
 
-The distribution is uniform and C<$min> must be <= C<$max>.
+C<$min> must be <= C<$max>.
 
 =cut
 sub between {
@@ -358,8 +355,7 @@ sub nullable {
 
 Returns a random element from the provided list.
 
-If provided an empty list, will return C<undef>. Randomness is uniform in
-its distribution.
+If provided an empty list, will return C<undef>.
 
 =cut
 sub pick { $_[rand @_] }
@@ -371,6 +367,12 @@ sub pick { $_[rand @_] }
 =item *
 
 These functions are not cryptographically secure.
+
+=item *
+
+Randomness uses the builtin function L<rand|perlfunc/rand>, so all limitations
+that apply to that also apply here. Randomness in this module's functions is
+uniform in its distribution unless specified otherwise.
 
 =item *
 

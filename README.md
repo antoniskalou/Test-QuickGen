@@ -7,7 +7,8 @@ Test::QuickGen - Utilities for generating random test data
     use Test::QuickGen qw(:all);
 
     my $id = id();
-    my $str = ascii_string(10);
+    my $ascii = ascii_string(10);
+    my $alphanum = alphanumeric_string(10);
     my $utf8 = utf8_string(20);
     my $clean = utf8_sanitized(15);
 
@@ -82,7 +83,6 @@ Generates a random string of length `$n` using the provided list of characters `
 
 - `$n` must be a non-negative integer.
 - At least one character must be provided.
-- Characters are selected uniformly at random.
 
 ## ascii\_string($n)
 
@@ -175,7 +175,7 @@ Example:
 
 Returns a random integer between `$min` and `$max` (inclusive).
 
-The distribution is uniform and `$min` must be <= `$max`.
+`$min` must be <= `$max`.
 
 ## nullable($val)
 
@@ -192,12 +192,14 @@ Useful for testing optional fields.
 
 Returns a random element from the provided list.
 
-If provided an empty list, will return `undef`. Randomness is uniform in
-its distribution.
+If provided an empty list, will return `undef`.
 
 # NOTES
 
 - These functions are not cryptographically secure.
+- Randomness uses the builtin function [rand](https://metacpan.org/pod/perlfunc#rand), so all limitations
+that apply to that also apply here. Randomness in this module's functions is
+uniform in its distribution unless specified otherwise.
 - They are intended for testing, fuzzing, and data generation only.
 
 # AUTHOR
