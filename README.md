@@ -39,12 +39,17 @@ Import functions explicitly:
 Import groups of functions using tags:
 
     use Test::QuickGen qw(:all);
+    use Test::QuickGen qw(:ascii);
     use Test::QuickGen qw(:utf8);
     use Test::QuickGen qw(:basic);
 
 - `:all`
 
     All available functions.
+
+- `:ascii`
+
+    ASCII specific functions.
 
 - `:utf8`
 
@@ -85,8 +90,15 @@ Generates a random string of length `$n` using the provided list of characters `
 
 Generates a random ASCII string length `$n`.
 
-The character set includes all lowercase letters (a-z), uppercase letters (A-Z),
-digits (0-9) and underscore (\_).
+The character set includes all visible ASCII symbols and characters (in the
+range 33 to 126).
+
+## alphanumeric\_string($n)
+
+    my $str = alphanumeric_string($n);
+
+Generates a random ASCII string of only alphanumericeric characters of
+length `$n`.
 
 ## utf8\_string($n)
 
@@ -107,7 +119,7 @@ character count (not byte length).
 
     my $clean = utf8_sanitized(10);
 
-Generates a UTF-8 string of length `$n` and removes all non-alphanumeric
+Generates a UTF-8 string of length `$n` and removes all non-alphanumericeric
 characters, retaining only:
 
 - Unicode letters (`\p{L}`)

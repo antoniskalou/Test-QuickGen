@@ -10,11 +10,12 @@ use Exporter 'import';
 our $VERSION = '0.1.2';
 
 our @EXPORT_OK = qw(
-  ascii_string between id string_of pick nullable words
+  ascii_string alphanumeric_string between id string_of pick nullable words
   utf8_string utf8_sanitized
 );
 our %EXPORT_TAGS = (
   all => \@EXPORT_OK,
+  ascii => [qw(ascii_string alphanumeric_string)],
   utf8 => [qw(utf8_string utf8_sanitized)],
   basic => [qw(id between pick nullable)],
 );
@@ -60,6 +61,7 @@ Import functions explicitly:
 Import groups of functions using tags:
 
   use Test::QuickGen qw(:all);
+  use Test::QuickGen qw(:ascii);
   use Test::QuickGen qw(:utf8);
   use Test::QuickGen qw(:basic);
 
@@ -68,6 +70,10 @@ Import groups of functions using tags:
 =item * C<:all>
 
 All available functions.
+
+=item * C<:ascii>
+
+ASCII specific functions.
 
 =item * C<:utf8>
 
@@ -141,14 +147,28 @@ sub string_of {
 
 Generates a random ASCII string length C<$n>.
 
-The character set includes all lowercase letters (a-z), uppercase letters (A-Z),
-digits (0-9) and underscore (_).
+The character set includes all visible ASCII symbols and characters (in the
+range 33 to 126).
 
 =cut
 sub ascii_string {
   my ($n) = @_;
-  # TODO: include other ASCII characters too
-  string_of($n, 'a'..'z', 'A'..'Z', '0'..'9', '_');
+  # all visible ASCII characters
+  my @chars = map { chr($_) } 33..126;
+  string_of($n, @chars);
+}
+
+=head2 alphanumeric_string($n)
+
+  my $str = alphanumeric_string($n);
+
+Generates a random ASCII string of only alphanumericeric characters of
+length C<$n>.
+
+=cut
+sub alphanumeric_string {
+  my ($n) = @_;
+  string_of($n, 'a'..'z', 'A'..'Z', '0'..'9');
 }
 
 =head2 utf8_string($n)
@@ -203,7 +223,7 @@ sub utf8_string {
 
   my $clean = utf8_sanitized(10);
 
-Generates a UTF-8 string of length C<$n> and removes all non-alphanumeric
+Generates a UTF-8 string of length C<$n> and removes all non-alphanumericeric
 characters, retaining only:
 
 =over 4
