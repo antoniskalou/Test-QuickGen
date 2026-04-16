@@ -1,8 +1,12 @@
+0.1.2
+  * Update pod
+  * Update contributors list
+
 0.1.1
-	* Update pod and related documentation
-	* Update Makefile.PL to explicitly specify no dependencies
-	* Update Test::QuickGen::words to allow a max length
-	* Add CONTRIBUTING.md
+  * Update pod and related documentation
+  * Update Makefile.PL to explicitly specify no dependencies
+  * Update Test::QuickGen::words to allow a max length
+  * Add CONTRIBUTING.md
 
 0.1.0
-	* Initial CPAN release
+  * Initial CPAN release

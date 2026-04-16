@@ -7,7 +7,7 @@ use Carp qw(croak);
 use Scalar::Util qw(looks_like_number);
 use Exporter 'import';
 
-our $VERSION = '0.1.1';
+our $VERSION = '0.1.2';
 
 our @EXPORT_OK = qw(
   ascii_string between id string_of pick nullable words
