@@ -362,6 +362,12 @@ They are intended for testing, fuzzing, and data generation only.
 
 Antonis Kalou E<lt>kalouantonis@protonmail.comE<gt>
 
+=head1 CONTRIBUTORS
+
+B<bas080>: L<https://github.com/bas080>
+
+B<Penfold>: Mike Whitaker E<lt>pendfold@cpan.orgE<gt>
+
 =head1 LICENSE
 
 This library is free software; you can redistribute it and/or modify it under

@@ -192,6 +192,12 @@ its distribution.
 
 Antonis Kalou <kalouantonis@protonmail.com>
 
+# CONTRIBUTORS
+
+**bas080**: [https://github.com/bas080](https://github.com/bas080)
+
+**Penfold**: Mike Whitaker <pendfold@cpan.org>
+
 # LICENSE
 
 This library is free software; you can redistribute it and/or modify it under
